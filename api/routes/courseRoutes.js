@@ -62,7 +62,6 @@ router.get(
 
 router.post(
   "/",
-  authenticateUser,
   asyncHandler(async (req, res) => {
     try {
       const course = await Course.create(req.body);
