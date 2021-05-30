@@ -4,13 +4,13 @@ import Form from "./Form";
 
 export default class UserSignIn extends Component {
   state = {
-    username: "",
+    emailAddress: "",
     password: "",
     errors: []
   };
 
   render() {
-    const { username, password, errors } = this.state;
+    const { emailAddress, password, errors } = this.state;
 
     return (
       <div className="bounds">
@@ -24,12 +24,12 @@ export default class UserSignIn extends Component {
             elements={() => (
               <React.Fragment>
                 <input
-                  id="username"
-                  name="username"
+                  id="emailAddress"
+                  name="emailAddress"
                   type="text"
-                  value={username}
+                  value={emailAddress}
                   onChange={this.change}
-                  placeholder="User Name"
+                  placeholder="Email Address"
                 />
                 <input
                   id="password"
@@ -65,19 +65,21 @@ export default class UserSignIn extends Component {
   submit = () => {
     const { context } = this.props;
     const { from } = this.props.location.state || {
-      from: { pathname: "/authenticated" }
+      from: { pathname: "/" }
     };
-    const { username, password } = this.state;
+    const { emailAddress, password } = this.state;
+    console.log(emailAddress);
 
     context.actions
-      .signIn(username, password)
-      .then(user => {
-        if (user === null) {
+      .signIn(emailAddress, password)
+      .then(owner => {
+        if (owner === null) {
           this.setState(() => {
             return { errors: ["Sign-in was unsuccessful"] };
           });
         } else {
           this.props.history.push(from);
+          console.log(`SUCCESS! ${emailAddress} is now signed in!`);
         }
       })
       .catch(error => {
@@ -87,6 +89,6 @@ export default class UserSignIn extends Component {
   };
 
   cancel = () => {
-    this.props.history.push("/courses");
+    this.props.history.push("/");
   };
 }

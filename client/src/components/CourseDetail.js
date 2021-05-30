@@ -38,7 +38,7 @@ export default class CourseDetail extends Component {
               Delete Course
             </a>
 
-            <a className="button button-secondary" href="/courses/">
+            <a className="button button-secondary" href="/">
               Return to List
             </a>
           </div>
@@ -52,6 +52,7 @@ export default class CourseDetail extends Component {
                 <h3 className="course--detail--title">Course</h3>
                 <h4 className="course--name">{courseInfo.title}</h4>
                 <p>{`By ${owner.firstName} ${owner.lastName}`}</p>
+                <p>{courseInfo.description}</p>
               </div>
               <div>
                 <h3 className="course--detail--title">Estimated Time</h3>

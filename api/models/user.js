@@ -38,7 +38,7 @@ module.exports = sequelize => {
             msg: "An Email Address is required"
           },
           notEmpty: {
-            msg: 'Please provide a value for "title"'
+            msg: 'Please provide a value for "Email Address"'
           },
           isEmail: {
             msg: "Your email must be in the valid format"

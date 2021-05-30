@@ -3,22 +3,18 @@ import Form from "./Form";
 
 export default class CreateCourse extends Component {
   state = {
-    courseTitle: "",
-    courseDescription: "",
+    title: "",
+    description: "",
     estimatedTime: "",
     materialsNeeded: "",
     errors: [],
-    user: this.props.context.authenticateUser
+    user: this.props.context.authenticatedUser || null
   };
-
-  componentDidMount() {
-    console.log(this.state.user);
-  }
 
   render() {
     const {
-      courseTitle,
-      courseDescription,
+      title,
+      description,
       estimatedTime,
       materialsNeeded,
       errors
@@ -35,24 +31,24 @@ export default class CreateCourse extends Component {
             submitButtonText="Create Course"
             elements={() => (
               <React.Fragment>
-                <label for="courseTitle">Course Title</label>
+                <label htmlFor="title">Course Title</label>
                 <input
-                  id="courseTitle"
-                  name="courseTitle"
+                  id="title"
+                  name="title"
                   type="text"
                   onChange={this.change}
-                  value={courseTitle}
+                  value={title}
                 />
 
-                <label for="courseDescription">Course Description</label>
+                <label htmlFor="description">Course Description</label>
                 <textarea
-                  id="courseDescription"
-                  name="courseDescription"
+                  id="description"
+                  name="description"
                   type="text"
                   onChange={this.change}
-                  value={courseDescription}
+                  value={description}
                 />
-                <label for="estimatedTime">Estimated Time</label>
+                <label htmlFor="estimatedTime">Estimated Time</label>
                 <input
                   id="estimatedTime"
                   name="estimatedTime"
@@ -61,7 +57,7 @@ export default class CreateCourse extends Component {
                   value={estimatedTime}
                 />
 
-                <label for="materialsNeeded">Materials Needed</label>
+                <label htmlFor="materialsNeeded">Materials Needed</label>
                 <textarea
                   id="materialsNeeded"
                   name="materialsNeeded"
@@ -72,12 +68,6 @@ export default class CreateCourse extends Component {
               </React.Fragment>
             )}
           />
-          <button
-            className="button button-secondary"
-            onClick="event.preventDefault(); location.href='index.html';"
-          >
-            Cancel
-          </button>
         </div>
       </div>
     );
@@ -97,20 +87,21 @@ export default class CreateCourse extends Component {
   submit = () => {
     const { context } = this.props;
     const {
-      courseTitle,
-      courseDescription,
+      title,
+      description,
       estimatedTime,
-      materialsNeeded
+      materialsNeeded,
+      user
     } = this.state;
+    const userId = user.id;
 
-    // Create user
     const course = {
-      courseTitle,
-      courseDescription,
+      title,
+      description,
       estimatedTime,
-      materialsNeeded
+      materialsNeeded,
+      userId
     };
-
     context.data.createCourse(course).then(errors => {
       if (errors.length) {
         this.setState({ errors });
@@ -119,9 +110,9 @@ export default class CreateCourse extends Component {
         this.props.history.push("/");
       }
     });
+  };
 
-    // cancel = () => {
-    //   this.props.history.push("/");
-    // };
+  cancel = () => {
+    this.props.history.push("/");
   };
 }

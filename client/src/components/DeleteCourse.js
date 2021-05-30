@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Form from "./Form";
 const Axios = require("axios");
 
-export default class UpdateCourse extends Component {
+export default class DeleteCourse extends Component {
   state = {
     title: "",
     description: "",
@@ -12,7 +12,8 @@ export default class UpdateCourse extends Component {
     user: this.props.context.authenticatedUser || null,
     id: this.props.match.params.id,
     course: {},
-    owner: {}
+    owner: {},
+    userId: ""
   };
 
   async componentDidMount() {
@@ -50,13 +51,13 @@ export default class UpdateCourse extends Component {
 
     return (
       <div className="wrap">
-        <h2>Update {course.title}</h2>
+        <h2>Delete: {course.title}</h2>
         <div className="main--flex">
           <Form
             cancel={this.cancel}
             errors={errors}
             submit={this.submit}
-            submitButtonText="Update Course"
+            submitButtonText="Delete Course"
             elements={() => (
               <React.Fragment>
                 <label for="title">Course Title</label>
@@ -107,7 +108,8 @@ export default class UpdateCourse extends Component {
 
     this.setState(() => {
       return {
-        [name]: value
+        [name]: value,
+        userId: 1
       };
     });
   };
@@ -120,9 +122,9 @@ export default class UpdateCourse extends Component {
       estimatedTime,
       materialsNeeded,
       id,
-      user
+      userId
     } = this.state;
-    const userId = user.id;
+
     // Create course
     const course = {
       title,
@@ -132,17 +134,18 @@ export default class UpdateCourse extends Component {
       id,
       userId
     };
-    context.data.updateCourse(id, course).then(errors => {
+    context.data.deleteCourse(id, course).then(errors => {
       if (errors.length) {
         this.setState({ errors });
       } else {
-        console.log("course updated");
-        this.props.history.push(`/courses/${id}`);
+        console.log("course deleted");
+        this.props.history.push("/");
       }
     });
   };
 
   cancel = () => {
-    this.props.history.push("/");
+    const { id } = this.state;
+    this.props.history.push(`courses/${id}/update`);
   };
 }

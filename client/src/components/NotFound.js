@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 export default () => (
   <div className="bounds">
-    <h1>Not Found</h1>
-    <p>Sorry! We couldn't find the page you're looking for.</p>
+    <h1>Forbidden</h1>
+    <p>Oh oh! You can't access this page.</p>
   </div>
 );
