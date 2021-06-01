@@ -110,6 +110,7 @@ router.put(
 // Send a DELETE request to /courses/:id to DELETE a course
 router.delete(
   "/:id",
+  authenticateUser,
   asyncHandler(async (req, res, next) => {
     const course = await Course.findByPk(req.params.id);
     if (course) {

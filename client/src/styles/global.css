@@ -42,6 +42,7 @@ header {
 .header--logo a {
     font-size: 1.25rem;
     color: #fff;
+    align-items: left;
 }
 header li {
     font-size: .8rem;
@@ -104,6 +105,7 @@ header nav a:hover {
     font-size: 2rem;
     margin-bottom: .5rem;
     font-weight: 700;
+margin-top: .05rem;
     color: #47395e;
 }
 .course--detail--list {

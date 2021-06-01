@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-// import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import Data from "./Data";
 
 const Context = React.createContext();
 
 export class Provider extends Component {
   state = {
-    authenticatedUser: null
+    authenticatedUser: Cookies.getJSON("authenticatedUser") || null
   };
 
   constructor() {
@@ -31,9 +31,11 @@ export class Provider extends Component {
 
   signIn = async (emailAddress, password) => {
     const user = await this.data.getUser(emailAddress, password);
-    console.log(user);
     if (user !== null) {
       this.setState(() => {
+        user.emailAddress = emailAddress;
+        user.password = password;
+        Cookies.set("authenticatedUser", JSON.stringify(user), { expires: 1 });
         return {
           authenticatedUser: user
         };
@@ -43,7 +45,12 @@ export class Provider extends Component {
   };
 
   signOut = () => {
-    this.setState({ authenticatedUser: null });
+    this.setState(() => {
+      return {
+        authenticatedUser: null
+      };
+    });
+    Cookies.remove("authenticatedUser");
   };
 }
 

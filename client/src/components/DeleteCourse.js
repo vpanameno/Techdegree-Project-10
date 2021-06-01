@@ -1,19 +1,15 @@
 import React, { Component } from "react";
 import Form from "./Form";
+import ReactMarkdown from "react-markdown";
 const Axios = require("axios");
 
 export default class DeleteCourse extends Component {
   state = {
-    title: "",
-    description: "",
-    estimatedTime: "",
-    materialsNeeded: "",
+    owner: {},
     errors: [],
     user: this.props.context.authenticatedUser || null,
     id: this.props.match.params.id,
-    course: {},
-    owner: {},
-    userId: ""
+    course: {}
   };
 
   async componentDidMount() {
@@ -40,64 +36,37 @@ export default class DeleteCourse extends Component {
   };
 
   render() {
-    const {
-      title,
-      description,
-      estimatedTime,
-      materialsNeeded,
-      errors,
-      course
-    } = this.state;
-
+    const { course, owner, errors } = this.state;
     return (
       <div className="wrap">
-        <h2>Delete: {course.title}</h2>
-        <div className="main--flex">
-          <Form
-            cancel={this.cancel}
-            errors={errors}
-            submit={this.submit}
-            submitButtonText="Delete Course"
-            elements={() => (
+        <h3>Delete Course: {course.title}?</h3>
+        <Form
+          cancel={this.cancel}
+          errors={errors}
+          submit={this.submit}
+          submitButtonText="Delete Course"
+          elements={() => (
+            <div className="main--flex">
               <React.Fragment>
-                <label for="title">Course Title</label>
-                <input
-                  id="title"
-                  name="title"
-                  type="text"
-                  onChange={this.change}
-                  defaultValue={title}
-                />
-
-                <label for="description">Course Description</label>
-                <textarea
-                  id="description"
-                  name="description"
-                  type="text"
-                  onChange={this.change}
-                  defaultValue={description}
-                />
-                <label for="estimatedTime">Estimated Time</label>
-                <input
-                  id="estimatedTime"
-                  name="estimatedTime"
-                  type="text"
-                  onChange={this.change}
-                  defaultValue={estimatedTime}
-                />
-
-                <label for="materialsNeeded">Materials Needed</label>
-                <textarea
-                  id="materialsNeeded"
-                  name="materialsNeeded"
-                  type="text"
-                  onChange={this.change}
-                  defaultValue={materialsNeeded}
-                />
+                <div>
+                  <h3 className="course--detail--title">Course</h3>
+                  <h4 className="course--name">{course.title}</h4>
+                  <p>{`By ${owner.firstName} ${owner.lastName}`}</p>
+                  <ReactMarkdown>{course.description}</ReactMarkdown>
+                </div>
               </React.Fragment>
-            )}
-          />
-        </div>
+              <React.Fragment>
+                <div>
+                  <h3 className="course--detail--title">Estimated Time</h3>
+                  <p>{course.estimatedTime}</p>
+
+                  <h3 className="course--detail--title">Materials Needed</h3>
+                  <ReactMarkdown>{course.materialsNeeded}</ReactMarkdown>
+                </div>
+              </React.Fragment>
+            </div>
+          )}
+        />
       </div>
     );
   }
@@ -108,22 +77,22 @@ export default class DeleteCourse extends Component {
 
     this.setState(() => {
       return {
-        [name]: value,
-        userId: 1
+        [name]: value
       };
     });
   };
 
   submit = () => {
     const { context } = this.props;
+    const { authenticatedUser } = context;
     const {
       title,
       description,
       estimatedTime,
       materialsNeeded,
-      id,
-      userId
+      id
     } = this.state;
+    const userId = authenticatedUser.userId;
 
     // Create course
     const course = {
@@ -134,18 +103,25 @@ export default class DeleteCourse extends Component {
       id,
       userId
     };
-    context.data.deleteCourse(id, course).then(errors => {
-      if (errors.length) {
-        this.setState({ errors });
-      } else {
-        console.log("course deleted");
-        this.props.history.push("/");
-      }
-    });
+    context.data
+      .deleteCourse(
+        id,
+        course,
+        authenticatedUser.emailAddress,
+        authenticatedUser.password
+      )
+      .then(errors => {
+        if (errors.length) {
+          this.setState({ errors });
+        } else {
+          console.log("course deleted");
+          this.props.history.push("/");
+        }
+      });
   };
 
   cancel = () => {
     const { id } = this.state;
-    this.props.history.push(`courses/${id}/update`);
+    this.props.history.push(`/courses/${id}`);
   };
 }

@@ -11,7 +11,8 @@ import UserSignUp from "./components/UserSignUp";
 import UserSignIn from "./components/UserSignIn";
 import UserSignOut from "./components/UserSignOut";
 import DeleteCourse from "./components/DeleteCourse";
-//
+import Forbidden from "./components/Forbidden";
+
 import withContext from "./Context";
 import PrivateRoute from "./PrivateRoute";
 
@@ -22,6 +23,7 @@ const CreateCourseWithContext = withContext(CreateCourse);
 const UpdateCourseWithContext = withContext(UpdateCourse);
 const DeleteCourseWithContext = withContext(DeleteCourse);
 const UserSignOutWithContext = withContext(UserSignOut);
+const CourseDetailWithContext = withContext(CourseDetail);
 
 export default () => (
   <Router>
@@ -34,7 +36,7 @@ export default () => (
           path="/courses/create"
           component={CreateCourseWithContext}
         />
-        <Route exact path="/courses/:id" component={CourseDetail} />
+        <Route exact path="/courses/:id" component={CourseDetailWithContext} />
         <PrivateRoute
           exact
           path="/courses/:id/update"
@@ -43,11 +45,11 @@ export default () => (
         <Route path="/signup" component={UserSignUpWithContext} />
         <Route path="/signin" component={UserSignInWithContext} />
         <Route path="/signout" component={UserSignOutWithContext} />
-        <Route
-          exact
-          path="/courses/delete/:id"
+        <PrivateRoute
+          path="/courses/:id/delete"
           component={DeleteCourseWithContext}
         />
+        <Route path="/forbidden" component={Forbidden} />
         <Route component={NotFound} />
       </Switch>
     </div>

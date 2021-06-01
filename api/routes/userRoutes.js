@@ -28,7 +28,8 @@ router.get(
       firstName: user.firstName,
       lastName: user.lastName,
       emailAddress: user.emailAddress,
-      password: user.password
+      password: user.password,
+      userId: user.id
     });
     res.status(200);
   })

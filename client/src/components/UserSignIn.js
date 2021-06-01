@@ -68,7 +68,6 @@ export default class UserSignIn extends Component {
       from: { pathname: "/" }
     };
     const { emailAddress, password } = this.state;
-    console.log(emailAddress);
 
     context.actions
       .signIn(emailAddress, password)

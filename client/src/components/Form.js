@@ -34,11 +34,12 @@ export default props => {
 function ErrorsDisplay({ errors }) {
   let errorsDisplay = null;
 
-  if (errors) {
+  if (errors.length) {
+    console.log(errors);
     errorsDisplay = (
       <div>
-        <h2 className="validation--errors--label">Validation errors</h2>
-        <div className="validation-errors">
+        <div className="validation--errors">
+          <h2 className="validation--errors--label">Validation Error</h2>
           <ul>
             {errors.map((error, i) => (
               <li key={i}>{error}</li>
