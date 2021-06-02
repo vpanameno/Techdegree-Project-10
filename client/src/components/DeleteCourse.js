@@ -29,8 +29,10 @@ export default class DeleteCourse extends Component {
           description: response.data.description,
           estimatedTime: response.data.estimatedTime,
           materialsNeeded: response.data.materialsNeeded
+        }).catch(err => {
+          console.error(err);
+          this.props.history.push("/notfound");
         });
-        console.log(response.data);
       }
     );
   };

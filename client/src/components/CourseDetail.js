@@ -23,6 +23,9 @@ export default class CourseDetail extends Component {
         this.setState({
           course: response.data,
           owner: response.data.owner
+        }).catch(err => {
+          console.error(err);
+          this.props.history.push("/notfound");
         });
       }
     );
