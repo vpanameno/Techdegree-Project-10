@@ -11,7 +11,6 @@ import UserSignUp from "./components/UserSignUp";
 import UserSignIn from "./components/UserSignIn";
 import UserSignOut from "./components/UserSignOut";
 import DeleteCourse from "./components/DeleteCourse";
-import Forbidden from "./components/Forbidden";
 
 import withContext from "./Context";
 import PrivateRoute from "./PrivateRoute";
@@ -49,7 +48,6 @@ export default () => (
           path="/courses/:id/delete"
           component={DeleteCourseWithContext}
         />
-        <Route path="/forbidden" component={Forbidden} />
         <Route component={NotFound} />
       </Switch>
     </div>
