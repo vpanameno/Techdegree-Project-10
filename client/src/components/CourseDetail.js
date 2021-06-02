@@ -17,16 +17,20 @@ export default class CourseDetail extends Component {
     this.getCourse();
   }
   // In the function below I am fetching the course that is clicked out based on the URL parameters and updating state
-  async getCourse(id = this.props.match.params.id) {
-    await Axios.get(`http://localhost:5000/api/courses/${id}`).then(
-      response => {
+  getCourse = async function(id = this.props.match.params.id) {
+    await Axios.get(`http://localhost:5000/api/courses/${id}`)
+      .then(response => {
         this.setState({
           course: response.data,
           owner: response.data.owner
         });
-      }
-    );
-  }
+      })
+      .catch(err => {
+        console.error(err);
+        this.props.history.push("/notfound");
+      });
+  };
+
   // Below I am rendering the course details to be displayed on the page.
   render() {
     const { context } = this.props;

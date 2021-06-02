@@ -73,6 +73,7 @@ export default class Data {
       throw new Error();
     }
   }
+
   //Update course will be responsible for also collecting credentials before allowing the user to update the course. This will send a PUT request to update the course.
   async updateCourse(courseId, course, emailAddress, password) {
     const response = await this.api(
@@ -95,7 +96,7 @@ export default class Data {
       throw new Error();
     }
   }
-  //deleteCourse is responsible for fetching credentials, authenticating the user and deleting a course fetching a destroy request.
+  //deleteCourse is responsible for fetching credentials, authenticating the user and deleting a course fetching a delete request.
   async deleteCourse(courseId, course, emailAddress, password) {
     const response = await this.api(
       `/courses/${courseId}`,

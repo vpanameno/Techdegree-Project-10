@@ -19,22 +19,17 @@ export default class DeleteCourse extends Component {
   }
   //Fetching the course that is part of the parameters in the UL for update course
   getCourse = async function(id) {
-    console.log(this.state.id);
-    await Axios.get(`http://localhost:5000/api/courses/${id}`).then(
-      response => {
+    await Axios.get(`http://localhost:5000/api/courses/${id}`)
+      .then(response => {
         this.setState({
           course: response.data,
-          owner: response.data.owner,
-          title: response.data.title,
-          description: response.data.description,
-          estimatedTime: response.data.estimatedTime,
-          materialsNeeded: response.data.materialsNeeded
-        }).catch(err => {
-          console.error(err);
-          this.props.history.push("/notfound");
+          owner: response.data.owner
         });
-      }
-    );
+      })
+      .catch(err => {
+        console.error(err);
+        this.props.history.push("/notfound");
+      });
   };
   //I will render the course details on the page
   render() {
