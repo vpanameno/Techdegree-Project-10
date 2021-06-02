@@ -20,7 +20,7 @@ export default class UpdateCourse extends Component {
     });
     console.log(this.state.user);
   }
-
+  //This function will get the course associated with the id parameter from the url. Then, wel will update state and pass it on to render the form with the existing information
   getCourse = async function(id) {
     console.log(this.state.id);
     await Axios.get(`http://localhost:5000/api/courses/${id}`)
@@ -39,7 +39,7 @@ export default class UpdateCourse extends Component {
         this.props.history.push("/notfound");
       });
   };
-  //Below I will render the form and required fields from the getCourse state to fill in the blanks
+  //Below I will render the form and required fields from the getCourse state to fill in the blanks for the page update
   render() {
     const {
       title,
