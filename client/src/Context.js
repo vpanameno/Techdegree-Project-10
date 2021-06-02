@@ -28,7 +28,7 @@ export class Provider extends Component {
       <Context.Provider value={value}>{this.props.children}</Context.Provider>
     );
   }
-
+  //Below I am creating the function that will allow the user to sign in by first fetching a user and the setting state to the credentials if the user returned is valid
   signIn = async (emailAddress, password) => {
     const user = await this.data.getUser(emailAddress, password);
     if (user !== null) {

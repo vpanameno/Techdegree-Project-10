@@ -8,7 +8,7 @@ export default class UserSignIn extends Component {
     password: "",
     errors: []
   };
-
+  //Below I will render the form required for user to sign in
   render() {
     const { emailAddress, password, errors } = this.state;
 

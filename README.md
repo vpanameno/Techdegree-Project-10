@@ -1,2 +1,5 @@
 # Techdegree-Project-10
- 
+
+In this project, I created a full-stack application where I utilized the API I created in project 9 and created the front-end (client) portion of the application. I collected deeper knowledge on how to use React and how the entire application must speak with each other to come together and provide results. A big concept I learned was was how to use context, I think this is paramount for providing a better read on your code since you avoid prop drilling. Sign/Sign Out is universal and can be accessed from anywhere in the app which is useful for authenticating user and storing the credentials.
+
+The best way to navigate the project is to run two terminals with API open in one and client in the other. This way you are able to make sure that both are connected successfully. I created several features that allow users to see content only if they have been authenticated, I also created several requests to fetch different types of data depending on what I am asking for. Lastly, having a private route has been extremely helpful in only allowing the user to see certain information if I am allowing it.

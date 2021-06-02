@@ -29,7 +29,7 @@ export default class Data {
     }
     return fetch(url, options);
   }
-
+  //get User will be responsible for signing users in - it will search for their matching credentials in the database and grant them access.
   async getUser(emailAddress, password) {
     const response = await this.api(`/users`, "GET", null, true, {
       emailAddress,
@@ -43,7 +43,7 @@ export default class Data {
       throw new Error();
     }
   }
-
+  //createUser will be responsible for storing the credentials in the database too allow getUser to access them
   async createUser(user) {
     const response = await this.api("/users", "POST", user);
     if (response.status === 201) {
@@ -57,7 +57,7 @@ export default class Data {
       throw new Error();
     }
   }
-
+  //createCourse will be responsible for collecting credentials before processing the request to create a course. once it has been processed it will send the information of the request in the body
   async createCourse(course, emailAddress, password) {
     const response = await this.api("/courses", "POST", course, true, {
       emailAddress,
@@ -73,7 +73,7 @@ export default class Data {
       throw new Error();
     }
   }
-
+  //Update course will be responsible for also collecting credentials before allowing the user to update the course. This will send a PUT request to update the course.
   async updateCourse(courseId, course, emailAddress, password) {
     const response = await this.api(
       `/courses/${courseId}`,
@@ -95,7 +95,7 @@ export default class Data {
       throw new Error();
     }
   }
-
+  //deleteCourse is responsible for fetching credentials, authenticating the user and deleting a course fetching a destroy request.
   async deleteCourse(courseId, course, emailAddress, password) {
     const response = await this.api(
       `/courses/${courseId}`,

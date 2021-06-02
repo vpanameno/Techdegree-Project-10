@@ -39,7 +39,7 @@ export default class UpdateCourse extends Component {
         this.props.history.push("/notfound");
       });
   };
-
+  //Below I will render the form and required fields from the getCourse state to fill in the blanks
   render() {
     const {
       title,
@@ -117,7 +117,7 @@ export default class UpdateCourse extends Component {
       };
     });
   };
-
+  //Below you will use submit to call the updateCourse function passed through context and and cslledwith the provided crentials
   submit = () => {
     const { context } = this.props;
     const { authenticatedUser } = context;

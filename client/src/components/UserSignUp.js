@@ -10,7 +10,7 @@ export default class UserSignUp extends Component {
     password: "",
     errors: []
   };
-
+  //Below I will render the form and update state when the users sign up
   render() {
     const { firstName, lastName, emailAddress, password, errors } = this.state;
 
@@ -79,7 +79,7 @@ export default class UserSignUp extends Component {
       };
     });
   };
-
+  //Sumbit will find the context data and call the signIn function passing the credentials
   submit = () => {
     const { context } = this.props;
     const { firstName, lastName, emailAddress, password } = this.state;

@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import ReactMarkdown from "react-markdown";
 import Axios from "axios";
 
+//In the component below - it's main objective will be to render the course details using
+//the information provided by API getCourse function
+
 export default class CourseDetail extends Component {
   state = {
     course: {},
@@ -13,7 +16,7 @@ export default class CourseDetail extends Component {
   componentDidMount() {
     this.getCourse();
   }
-
+  // In the function below I am fetching the course that is clicked out based on the URL parameters and updating state
   async getCourse(id = this.props.match.params.id) {
     await Axios.get(`http://localhost:5000/api/courses/${id}`).then(
       response => {
@@ -24,7 +27,7 @@ export default class CourseDetail extends Component {
       }
     );
   }
-
+  // Below I am rendering the course details to be displayed on the page.
   render() {
     const { context } = this.props;
     const authUser = context.authenticatedUser;
